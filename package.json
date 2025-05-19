@@ -1,0 +1,25 @@
+{
+  "name": "holyoke.club",
+  "version": "0.0.0",
+  "description": "A space for neighbors of Holyoke Road",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "author": "Theia Henderson",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "@picocss/pico": "^2.1.1",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@vue/language-server": "^2.2.0",
+    "@vue/tsconfig": "^0.7.0",
+    "@vue/typescript-plugin": "^2.2.0",
+    "tslib": "^2.8.1",
+    "typescript": "^5.7.3",
+    "vite": "^5.4.14",
+    "vite-plugin-node-polyfills": "^0.23.0"
+  }
+}
