@@ -47,7 +47,7 @@ const coords = [
                     >
                         <title>{{ coord.number }} {{ coord.street }}</title>
                     </rect>
-                    <!-- The <g> is an unfortunate hack to get centered text in safari -->
+                    <!-- The <g> container is an unfortunate hack to get centered text in safari -->
                     <g>
                         <text
                             :x="coord.x + coord.width / 2"
@@ -65,6 +65,7 @@ const coords = [
 <style>
 :root {
     --aspect-ratio: 1.5;
+    --transition-time: 0.2s;
 }
 
 #app {
@@ -73,24 +74,23 @@ const coords = [
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background: #f0e8d1;
 }
 
 svg {
     aspect-ratio: var(--aspect-ratio);
     max-height: 100%;
     width: min(100%, calc(100vh * var(--aspect-ratio)));
-    transition: all 0.2s;
+    transition: aspect-ratio var(--transition-time);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
 
-    * {
-        transition: all 0.2s;
+    g {
+        transform-origin: center;
+        transition: transform var(--transition-time);
     }
 
     a {
         text-decoration: none;
-    }
-
-    g {
-        transform-origin: center;
     }
 
     a g {
@@ -100,9 +100,14 @@ svg {
 
     a rect {
         fill: transparent;
+        transition: fill var(--transition-time);
     }
 
     a text {
+        /* transition the fill and the stroke */
+        transition:
+            fill var(--transition-time),
+            stroke var(--transition-time);
         fill: pink;
         stroke: black;
         stroke-width: 0.3px;
