@@ -47,12 +47,15 @@ const coords = [
                     >
                         <title>{{ coord.number }} {{ coord.street }}</title>
                     </rect>
-                    <text
-                        :x="coord.x + coord.width / 2"
-                        :y="coord.y + coord.height / 2"
-                    >
-                        {{ coord.number }}
-                    </text>
+                    <!-- The <g> is an unfortunate hack to get centered text in safari -->
+                    <g>
+                        <text
+                            :x="coord.x + coord.width / 2"
+                            :y="coord.y + coord.height / 2"
+                        >
+                            {{ coord.number }}
+                        </text>
+                    </g>
                 </a>
             </template>
         </g>
@@ -60,6 +63,10 @@ const coords = [
 </template>
 
 <style>
+:root {
+    --aspect-ratio: 1.5;
+}
+
 #app {
     display: flex;
     flex-direction: row;
@@ -69,8 +76,9 @@ const coords = [
 }
 
 svg {
-    max-height: 100vh;
-    aspect-ratio: 3/2;
+    aspect-ratio: var(--aspect-ratio);
+    max-height: 100%;
+    width: min(100%, calc(100vh * var(--aspect-ratio)));
     transition: all 0.2s;
 
     * {
@@ -82,7 +90,12 @@ svg {
     }
 
     g {
-        transform-origin: 50% 50%;
+        transform-origin: center;
+    }
+
+    a g {
+        transform: scaleX(calc(1 / var(--aspect-ratio)));
+        transform-box: fill-box;
     }
 
     a rect {
@@ -98,9 +111,6 @@ svg {
         paint-order: stroke;
         dominant-baseline: middle;
         text-anchor: middle;
-        transform-origin: center;
-        transform-box: fill-box;
-        transform: scaleX(0.666);
     }
 
     a:hover {
@@ -115,16 +125,18 @@ svg {
         }
     }
 }
+
+/* Change this to a container query */
 @media (max-aspect-ratio: 2/3) {
     svg {
-        aspect-ratio: 2/3;
+        aspect-ratio: calc(1 / var(--aspect-ratio));
 
         g {
             transform: rotate(90deg);
         }
 
-        a text {
-            transform: rotate(-90deg) scaleY(0.6666);
+        a g {
+            transform: rotate(-90deg) scaleY(calc(1 / var(--aspect-ratio)));
         }
     }
 }
