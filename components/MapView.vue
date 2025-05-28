@@ -28,38 +28,40 @@ const coords = [
 </script>
 
 <template>
-    <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-        <g>
-            <image
-                href="../media/holyoke.png"
-                height="100"
-                width="100"
-                preserveAspectRatio="none"
-            />
+    <div class="map-view">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+            <g>
+                <image
+                    href="../media/holyoke.png"
+                    height="100"
+                    width="100"
+                    preserveAspectRatio="none"
+                />
 
-            <template v-for="coord of coords">
-                <a href="">
-                    <rect
-                        :x="coord.x"
-                        :y="coord.y"
-                        :width="coord.width"
-                        :height="coord.height"
-                    >
-                        <title>{{ coord.number }} {{ coord.street }}</title>
-                    </rect>
-                    <!-- The <g> container is an unfortunate hack to get centered text in safari -->
-                    <g>
-                        <text
-                            :x="coord.x + coord.width / 2"
-                            :y="coord.y + coord.height / 2"
+                <template v-for="coord of coords">
+                    <a href="">
+                        <rect
+                            :x="coord.x"
+                            :y="coord.y"
+                            :width="coord.width"
+                            :height="coord.height"
                         >
-                            {{ coord.number }}
-                        </text>
-                    </g>
-                </a>
-            </template>
-        </g>
-    </svg>
+                            <title>{{ coord.number }} {{ coord.street }}</title>
+                        </rect>
+                        <!-- The <g> container is an unfortunate hack to get centered text in safari -->
+                        <g>
+                            <text
+                                :x="coord.x + coord.width / 2"
+                                :y="coord.y + coord.height / 2"
+                            >
+                                {{ coord.number }}
+                            </text>
+                        </g>
+                    </a>
+                </template>
+            </g>
+        </svg>
+    </div>
 </template>
 
 <style>
@@ -68,19 +70,19 @@ const coords = [
     --transition-time: 0.2s;
 }
 
-#app {
+.map-view {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    width: 100%;
+    height: 100dvh;
     background: #f0e8d1;
 }
 
-svg {
+.map-view svg {
     aspect-ratio: var(--aspect-ratio);
     max-height: 100%;
-    width: min(100%, calc(100vh * var(--aspect-ratio)));
     transition: aspect-ratio var(--transition-time);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
 
@@ -132,8 +134,8 @@ svg {
 }
 
 /* Change this to a container query */
-@media (max-aspect-ratio: 2/3) {
-    svg {
+@media (max-aspect-ratio: 1) {
+    .map-view svg {
         aspect-ratio: calc(1 / var(--aspect-ratio));
 
         g {
