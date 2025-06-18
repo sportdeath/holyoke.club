@@ -1,6 +1,8 @@
 import { createApp } from "vue";
 import "@picocss/pico/css/pico.classless.fuchsia.min.css";
-import MapView from "./components/MapView.vue";
+import Main from "./components/Main.vue";
+import House from "./components/House.vue";
+import { createRouter, createWebHistory } from "vue-router";
 
 const redirect = sessionStorage.redirect;
 delete sessionStorage.redirect;
@@ -8,4 +10,17 @@ if (redirect && redirect !== location.href) {
   history.replaceState(null, "", redirect);
 }
 
-createApp(MapView).mount("#app");
+const routes = [
+  {
+    path: "/h/:house",
+    name: "house",
+    component: House,
+  },
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
+
+createApp(Main).use(router).mount("#app");

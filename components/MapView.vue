@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RouterLink, useRouter } from "vue-router";
 const coords = [
     {
         number: "82/84",
@@ -25,10 +26,18 @@ const coords = [
         height: 10,
     },
 ];
+
+const router = useRouter();
+function onClick(e: MouseEvent) {
+    if (e.target instanceof Element && !e.target.closest("a")) {
+        // Clicked away from a link, navigate home
+        router.push("/");
+    }
+}
 </script>
 
 <template>
-    <div class="map-view">
+    <nav class="map-view" @click="onClick">
         <svg viewBox="0 0 100 100" preserveAspectRatio="none">
             <g>
                 <image
@@ -38,8 +47,18 @@ const coords = [
                     preserveAspectRatio="none"
                 />
 
-                <template v-for="coord of coords">
-                    <a href="">
+                <template
+                    v-for="coord of coords"
+                    :key="coord.number + coord.street"
+                >
+                    <RouterLink
+                        :to="{
+                            name: 'house',
+                            params: {
+                                house: coord.number + ' ' + coord.street,
+                            },
+                        }"
+                    >
                         <rect
                             :x="coord.x"
                             :y="coord.y"
@@ -57,11 +76,11 @@ const coords = [
                                 {{ coord.number }}
                             </text>
                         </g>
-                    </a>
+                    </RouterLink>
                 </template>
             </g>
         </svg>
-    </div>
+    </nav>
 </template>
 
 <style>
@@ -76,8 +95,9 @@ const coords = [
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100dvh;
+    height: 100%;
     background: #f0e8d1;
+    container-type: size;
 }
 
 .map-view svg {
@@ -134,7 +154,8 @@ const coords = [
 }
 
 /* Change this to a container query */
-@media (max-aspect-ratio: 1) {
+
+@container (aspect-ratio < 1) {
     .map-view svg {
         aspect-ratio: calc(1 / var(--aspect-ratio));
 
