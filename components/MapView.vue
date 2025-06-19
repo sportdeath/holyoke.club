@@ -2,11 +2,83 @@
 import { RouterLink, useRouter } from "vue-router";
 const coords = [
     {
+        number: "84",
+        street: "Elm Street",
+        x: 1.5,
+        y: 21,
+        width: 6.5,
+        height: 15,
+    },
+    {
+        number: "86",
+        street: "Elm Street",
+        x: 9.25,
+        y: 21,
+        width: 6.5,
+        height: 15,
+    },
+    {
         number: "82/84",
         street: "Elm Street",
         x: 25.5,
-        y: 20,
+        y: 21,
         width: 7.5,
+        height: 16,
+    },
+    {
+        number: "80",
+        street: "Elm Street",
+        x: 33.5,
+        y: 21,
+        width: 7,
+        height: 16,
+    },
+    {
+        number: "78",
+        street: "Elm Street",
+        x: 42,
+        y: 21,
+        width: 6.5,
+        height: 16,
+    },
+    {
+        number: "76",
+        street: "Elm Street",
+        x: 50.5,
+        y: 21,
+        width: 7,
+        height: 16,
+    },
+    {
+        number: "74",
+        street: "Elm Street",
+        x: 58.5,
+        y: 21,
+        width: 7,
+        height: 16,
+    },
+    {
+        number: "72",
+        street: "Elm Street",
+        x: 66.75,
+        y: 21,
+        width: 7,
+        height: 16,
+    },
+    {
+        number: "70",
+        street: "Elm Street",
+        x: 84.5,
+        y: 21,
+        width: 7,
+        height: 16,
+    },
+    {
+        number: "68",
+        street: "Elm Street",
+        x: 92,
+        y: 21.5,
+        width: 6.5,
         height: 17,
     },
     {
@@ -25,6 +97,22 @@ const coords = [
         width: 11.5,
         height: 10,
     },
+    {
+        number: "29",
+        street: "Holyoke Road",
+        x: 42,
+        y: 48,
+        width: 6,
+        height: 16.5,
+    },
+    {
+        number: "27",
+        street: "Holyoke Road",
+        x: 51.5,
+        y: 48,
+        width: 6.5,
+        height: 14.5,
+    },
 ];
 
 const router = useRouter();
@@ -41,7 +129,7 @@ function onClick(e: MouseEvent) {
         <svg viewBox="0 0 100 100" preserveAspectRatio="none">
             <g>
                 <image
-                    href="../media/holyoke.png"
+                    href="../media/holyoke.webp"
                     height="100"
                     width="100"
                     preserveAspectRatio="none"
@@ -140,7 +228,8 @@ function onClick(e: MouseEvent) {
         text-anchor: middle;
     }
 
-    a:hover {
+    /* a:hover { */
+    a {
         cursor: pointer;
 
         rect {
